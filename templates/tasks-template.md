@@ -14,10 +14,10 @@
    → research.md: Extract decisions → setup tasks
 3. Generate tasks by category:
    → Setup: project init, dependencies, linting
-   → Tests: Specmatic MCP contract tests, Playwright MCP browser tests, integration tests
+   → Tests: Specmatic MCP contract tests, UI component tests via ui-component-tester agent
    → Core: models, services, CLI commands
    → Integration: DB, middleware, logging
-   → Polish: unit tests, performance, docs
+   → Polish: performance validation, docs
 4. Apply task rules:
    → Different files = mark [P] for parallel
    → Same file = sequential (no [P])
@@ -56,8 +56,8 @@
 - [ ] T005 [P] Deploy api-resiliency-tester agent: Setup Specmatic MCP boundary condition tests
 - [ ] T006 [P] Deploy api-mock-manager agent: Start Specmatic mock server on port 9001
 - [ ] T007 [P] Configure frontend environment: REACT_APP_API_BASE_URL=http://localhost:9001
-- [ ] T008 [P] Deploy Playwright MCP: Browser test for user registration flow
-- [ ] T009 [P] Deploy Playwright MCP: Integration test auth flow with mock server
+- [ ] T008 [P] Deploy ui-component-tester agent: Component test for user registration form
+- [ ] T009 [P] Deploy ui-component-tester agent: Component test auth flow with mock server
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
 **GREEN Phase: Implement JUST ENOUGH to make failing tests pass**
@@ -79,11 +79,11 @@
 - [ ] T021 Deploy api-mock-manager agent: Stop Specmatic mock servers (port 9001)
 - [ ] T022 Start real backend on port 3000
 - [ ] T023 Reconfigure frontend: REACT_APP_API_BASE_URL=http://localhost:3000
-- [ ] T024 Deploy Playwright MCP: Run end-to-end integration tests
+- [ ] T024 Deploy ui-component-tester agent: Run component validation tests
 
 ## Phase 3.5: Polish & Validation
 **REFACTOR Phase: Clean up while keeping tests green**
-- [ ] T025 [P] Unit tests for validation in tests/unit/test_validation.py
+- [ ] T025 [P] Performance validation tests
 - [ ] T026 Deploy contract-test-runner agent: Final verification - ALL contract tests MUST pass
 - [ ] T027 Deploy api-resiliency-tester agent: Final verification - ALL resiliency tests MUST pass
 - [ ] T028 Performance tests (<200ms)
@@ -110,8 +110,8 @@ Agent: api-resiliency-tester
 Task: "Start Specmatic mock server on port 9001"
 Agent: api-mock-manager
 
-Task: "Playwright MCP browser test for user registration flow"
-Agent: Playwright MCP
+Task: "UI component test for user registration form"
+Agent: ui-component-tester
 ```
 
 ## Notes
@@ -133,8 +133,8 @@ Agent: Playwright MCP
    - Relationships → service layer tasks
    
 3. **From User Stories**:
-   - Each story → Playwright MCP: Browser test [P] (if frontend)
-   - Each story → integration test [P]
+   - Each story → ui-component-tester agent: Component test [P] (if frontend)
+   - Each story → contract test [P] (via Specmatic MCP)
    - Quickstart scenarios → validation tasks
    - Environment switching → api-mock-manager agent tasks (dev/prod mode)
 

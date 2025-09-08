@@ -6,13 +6,13 @@
 All features begin with OpenAPI specification definition. Backend and frontend implementations must strictly adhere to contract-defined interfaces. API contracts serve as the single source of truth for inter-service communication, data models, and validation rules.
 
 ### II. Ordered Development Workflow
-Development follows a strict three-phase approach: Backend development (First Priority) - implement against OpenAPI contract; Frontend development (Second Priority) - develop against Specmatic mock servers; Integration testing (Third Priority) - verify end-to-end workflows with real services.
+Development follows a strict three-phase approach: Backend development (First Priority) - implement against OpenAPI contract; Frontend development (Second Priority) - develop against Specmatic mock servers; Component testing (Third Priority) - verify UI components and contract compliance independently.
 
 ### III. Contract Testing (NON-NEGOTIABLE)  
-Specmatic MCP contract testing is mandatory for all API implementations. Both contract tests and resiliency tests must pass before code integration. Manual testing with curl or similar tools is prohibited - all validation occurs through automated contract verification.
+Specmatic MCP contract testing is mandatory for all API implementations. Both contract tests and resiliency tests must pass before code integration. UI component testing using ui-component-tester agent is mandatory for frontend components. Manual testing with curl or similar tools is prohibited - all validation occurs through automated contract verification and component testing.
 
 ### IV. Environment-Based Component Isolation
-Components must be developed and tested in isolation before integration. Dev mode: Frontend connects to mock servers (port 9001); Prod mode: Frontend connects to real backend (port 3000). Each component validates independently against contract specifications.
+Components must be developed and tested in isolation before integration. Dev mode: Frontend connects to mock servers (port 9001); Prod mode: Frontend connects to real backend (port 3000). Each component validates independently against contract specifications using specialized MCP agents.
 
 ### V. Code Structure & Quality Standards
 Maintain clear separation of concerns with routes, models, controllers in separate files/folders. Use descriptive variable names, implement proper error handling, follow RESTful conventions, and return appropriate HTTP status codes as defined in OpenAPI specifications.
@@ -37,13 +37,13 @@ Maintain clear separation of concerns with routes, models, controllers in separa
 1. **Contract Definition**: Create or update OpenAPI specification with all endpoints, schemas, and validation rules
 2. **Backend Implementation**: Develop API endpoints strictly following OpenAPI contract, validate with Specmatic MCP
 3. **Frontend Mock Development**: Build UI components against Specmatic mock servers for complete isolation
-4. **Integration Validation**: Switch frontend to production mode and verify end-to-end functionality
+4. **Component Validation**: Test UI components independently using ui-component-tester agent and validate contract compliance
 
 ### Quality Gates
 - Contract tests must pass before any code integration
 - Resiliency tests are mandatory for all API implementations  
-- Frontend isolation testing required before backend integration
-- No manual testing tools (curl, Postman) - only automated contract verification
+- UI component testing required using ui-component-tester agent
+- No manual testing tools (curl, Postman) - only automated contract verification and component testing
 - Server shutdown after successful test completion is mandatory
 
 ## Governance
@@ -54,8 +54,9 @@ This constitution supersedes all other development practices and guidelines. All
 ### Compliance Requirements
 - All PRs must demonstrate adherence to Contract-First Development principles
 - Specmatic MCP test results are mandatory for code integration approval
+- UI component test results using ui-component-tester agent are mandatory for frontend changes
 - Phase-based workflow must be followed without exception
-- Component isolation testing is required before integration phases
+- Component isolation testing is required using specialized MCP agents
 - Use templates/spec-template.md for creating feature specifications aligned with these principles
 
 ### Amendment Process

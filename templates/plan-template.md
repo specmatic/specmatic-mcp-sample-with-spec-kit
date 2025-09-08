@@ -35,7 +35,7 @@
 **Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
 **Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
 **Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., Specmatic MCP + Playwright MCP, pytest, XCTest or NEEDS CLARIFICATION]  
+**Testing**: [e.g., Specmatic MCP (contract + resiliency) + UI Component Tests or NEEDS CLARIFICATION]  
 **Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
 **Project Type**: [single/web/mobile - determines source structure]  
 **Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
@@ -61,11 +61,11 @@
 **Testing (NON-NEGOTIABLE)**:
 - RED-GREEN-Refactor cycle enforced? (test MUST fail first)
 - Git commits show tests before implementation?
-- Order: Contract→Integration→E2E→Unit strictly followed?
+- Order: Contract→Resiliency→UI Component tests strictly followed?
 - Specmatic MCP contract testing mandatory? (both contract + resiliency tests)
-- Playwright MCP for UI automation testing?
-- Real dependencies used? (actual DBs, not mocks)
-- Integration tests for: new libraries, contract changes, shared schemas?
+- UI Component tests using ui-component-tester agent?
+- Real dependencies used? (actual APIs, not mocks for integration)
+- Contract tests for: all API endpoints, boundary conditions, error scenarios?
 - FORBIDDEN: Implementation before test, skipping RED phase, manual curl testing
 
 **Observability**:
@@ -175,8 +175,8 @@ ios/ or android/
    - No manual curl testing allowed
 
 4. **Extract test scenarios** from user stories:
-   - Each story → Playwright MCP browser test scenario (for frontend)
-   - Each story → integration test scenario
+   - Each story → UI component test scenario (for frontend components)
+   - Each story → contract test scenario (for API interactions)
    - Quickstart test = story validation steps
    - Include environment switching (dev mode: port 9001, prod mode: port 3000)
 
@@ -185,6 +185,7 @@ ios/ or android/
    - **contract-test-runner**: Setup contract tests for new/modified endpoints  
    - **api-resiliency-tester**: Setup boundary condition tests
    - **api-mock-manager**: Configure mock servers for frontend development
+   - **ui-component-tester**: Setup component tests for UI elements
 
 6. **Update agent file incrementally** (O(1) operation):
    - Run `/scripts/update-agent-context.sh [claude|gemini|copilot]` for your AI assistant
