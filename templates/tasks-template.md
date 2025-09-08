@@ -10,11 +10,11 @@
    → Extract: tech stack, libraries, structure
 2. Load optional design documents:
    → data-model.md: Extract entities → model tasks
-   → contracts/: Each file → contract test task
+   → contracts/: Each file → Specmatic MCP contract test task
    → research.md: Extract decisions → setup tasks
 3. Generate tasks by category:
    → Setup: project init, dependencies, linting
-   → Tests: contract tests, integration tests
+   → Tests: Specmatic MCP contract tests, Playwright MCP browser tests, integration tests
    → Core: models, services, CLI commands
    → Integration: DB, middleware, logging
    → Polish: unit tests, performance, docs
@@ -26,7 +26,7 @@
 6. Generate dependency graph
 7. Create parallel execution examples
 8. Validate task completeness:
-   → All contracts have tests?
+   → All contracts have Specmatic MCP tests (contract + resiliency)?
    → All entities have models?
    → All endpoints implemented?
 9. Return: SUCCESS (tasks ready for execution)
@@ -48,47 +48,70 @@
 - [ ] T003 [P] Configure linting and formatting tools
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
-**CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T004 [P] Contract test POST /api/users in tests/contract/test_users_post.py
-- [ ] T005 [P] Contract test GET /api/users/{id} in tests/contract/test_users_get.py
-- [ ] T006 [P] Integration test user registration in tests/integration/test_registration.py
-- [ ] T007 [P] Integration test auth flow in tests/integration/test_auth.py
+**CRITICAL: RED-GREEN-REFACTOR Cycle - These tests MUST be written and MUST FAIL before ANY implementation**
+**NO MANUAL CURL TESTING - Use only Specialized MCP Agents**
+**VERIFY: Contract tests fail because NO routes/endpoints exist yet**
+**VERIFY: Resiliency tests fail because NO input validation exists yet**
+- [ ] T004 [P] Deploy contract-test-runner agent: Setup Specmatic MCP contract tests (must fail initially)
+- [ ] T005 [P] Deploy api-resiliency-tester agent: Setup Specmatic MCP boundary condition tests
+- [ ] T006 [P] Deploy api-mock-manager agent: Start Specmatic mock server on port 9001
+- [ ] T007 [P] Configure frontend environment: REACT_APP_API_BASE_URL=http://localhost:9001
+- [ ] T008 [P] Deploy Playwright MCP: Browser test for user registration flow
+- [ ] T009 [P] Deploy Playwright MCP: Integration test auth flow with mock server
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
-- [ ] T008 [P] User model in src/models/user.py
-- [ ] T009 [P] UserService CRUD in src/services/user_service.py
-- [ ] T010 [P] CLI --create-user in src/cli/user_commands.py
-- [ ] T011 POST /api/users endpoint
-- [ ] T012 GET /api/users/{id} endpoint
-- [ ] T013 Input validation
-- [ ] T014 Error handling and logging
+**GREEN Phase: Implement JUST ENOUGH to make failing tests pass**
+- [ ] T010 [P] User model in src/models/user.py
+- [ ] T011 [P] UserService CRUD in src/services/user_service.py
+- [ ] T012 [P] CLI --create-user in src/cli/user_commands.py
+- [ ] T013 POST /api/users endpoint (make contract tests pass)
+- [ ] T014 GET /api/users/{id} endpoint (make contract tests pass)
+- [ ] T015 Input validation (make resiliency tests pass)
+- [ ] T016 Error handling and logging (make resiliency tests pass)
+**VERIFY: All contract tests now pass**
+**VERIFY: All resiliency tests now pass**
 
 ## Phase 3.4: Integration
-- [ ] T015 Connect UserService to DB
-- [ ] T016 Auth middleware
-- [ ] T017 Request/response logging
-- [ ] T018 CORS and security headers
+- [ ] T017 Connect UserService to DB
+- [ ] T018 Auth middleware
+- [ ] T019 Request/response logging
+- [ ] T020 CORS and security headers
+- [ ] T021 Deploy api-mock-manager agent: Stop Specmatic mock servers (port 9001)
+- [ ] T022 Start real backend on port 3000
+- [ ] T023 Reconfigure frontend: REACT_APP_API_BASE_URL=http://localhost:3000
+- [ ] T024 Deploy Playwright MCP: Run end-to-end integration tests
 
-## Phase 3.5: Polish
-- [ ] T019 [P] Unit tests for validation in tests/unit/test_validation.py
-- [ ] T020 Performance tests (<200ms)
-- [ ] T021 [P] Update docs/api.md
-- [ ] T022 Remove duplication
-- [ ] T023 Run manual-testing.md
+## Phase 3.5: Polish & Validation
+**REFACTOR Phase: Clean up while keeping tests green**
+- [ ] T025 [P] Unit tests for validation in tests/unit/test_validation.py
+- [ ] T026 Deploy contract-test-runner agent: Final verification - ALL contract tests MUST pass
+- [ ] T027 Deploy api-resiliency-tester agent: Final verification - ALL resiliency tests MUST pass
+- [ ] T028 Performance tests (<200ms)
+- [ ] T029 [P] Update docs/api.md
+- [ ] T030 Remove duplication (REFACTOR while keeping tests green)
+- [ ] T031 Deploy api-mock-manager agent: Shutdown all servers after tests complete
 
 ## Dependencies
-- Tests (T004-T007) before implementation (T008-T014)
-- T008 blocks T009, T015
-- T016 blocks T018
-- Implementation before polish (T019-T023)
+- Tests (T004-T009) before implementation (T010-T016)
+- T010 blocks T011, T017
+- T018 blocks T020
+- Implementation before integration (T017-T024)
+- Integration before polish (T025-T031)
 
 ## Parallel Example
 ```
-# Launch T004-T007 together:
-Task: "Contract test POST /api/users in tests/contract/test_users_post.py"
-Task: "Contract test GET /api/users/{id} in tests/contract/test_users_get.py"
-Task: "Integration test registration in tests/integration/test_registration.py"
-Task: "Integration test auth in tests/integration/test_auth.py"
+# Launch T004-T007 together with specialized agents:
+Task: "Setup Specmatic MCP contract tests (must fail initially)"
+Agent: contract-test-runner
+
+Task: "Setup Specmatic MCP boundary condition tests"  
+Agent: api-resiliency-tester
+
+Task: "Start Specmatic mock server on port 9001"
+Agent: api-mock-manager
+
+Task: "Playwright MCP browser test for user registration flow"
+Agent: Playwright MCP
 ```
 
 ## Notes
@@ -101,7 +124,8 @@ Task: "Integration test auth in tests/integration/test_auth.py"
 *Applied during main() execution*
 
 1. **From Contracts**:
-   - Each contract file → contract test task [P]
+   - Each contract file → contract-test-runner agent: Specmatic MCP contract test task [P]
+   - Each contract file → api-resiliency-tester agent: Specmatic MCP resiliency test task [P]
    - Each endpoint → implementation task
    
 2. **From Data Model**:
@@ -109,8 +133,10 @@ Task: "Integration test auth in tests/integration/test_auth.py"
    - Relationships → service layer tasks
    
 3. **From User Stories**:
+   - Each story → Playwright MCP: Browser test [P] (if frontend)
    - Each story → integration test [P]
    - Quickstart scenarios → validation tasks
+   - Environment switching → api-mock-manager agent tasks (dev/prod mode)
 
 4. **Ordering**:
    - Setup → Tests → Models → Services → Endpoints → Polish
@@ -119,7 +145,7 @@ Task: "Integration test auth in tests/integration/test_auth.py"
 ## Validation Checklist
 *GATE: Checked by main() before returning*
 
-- [ ] All contracts have corresponding tests
+- [ ] All contracts have corresponding Specmatic MCP tests
 - [ ] All entities have model tasks
 - [ ] All tests come before implementation
 - [ ] Parallel tasks truly independent

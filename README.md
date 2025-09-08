@@ -1,0 +1,262 @@
+# Specmatic MCP Sample Project
+
+This project demonstrates **contract-first development** using a **spec-kit** approach where OpenAPI specifications evolve organically through feature development. Each feature analyzes existing contracts for reuse before extending the API, using **Specmatic MCP** as intelligent guardrails throughout the process.
+
+## 🚀 TL;DR - Get Started Quickly
+
+```bash
+claude
+```
+
+Then try the spec-kit workflow: `/specify "create a product listing page"` (use plan mode first, then autoaccept)
+
+And observe Claude use the spec-kit to evolve the API contract organically through feature development!
+
+
+## 📦 Specmatic MCP Resources
+
+- 📦 **NPM Package**: [specmatic-mcp](https://www.npmjs.com/package/specmatic-mcp) - Easy NPM installation
+- 📂 **Source Code**: [specmatic/specmatic-mcp-server](https://github.com/specmatic/specmatic-mcp-server) - GitHub repository
+
+> **Note:** This project uses Claude Code for demo purposes, however you can use any coding agent of your choice and make necessary changes accordingly.
+
+## 🎯 What This Template Demonstrates
+
+This template shows **API Design First methodology** in action. Starting from **zero** (no pre-existing contracts), observe how:
+
+- **Contract-first development** works using the spec-kit workflow: `/specify` → `/plan` → `/tasks` → implement  
+- OpenAPI specifications **evolve organically** through feature development
+- Existing API operations are **analyzed for reuse** before extending contracts
+- Teams can work **independently** after agreeing on the contract
+- **Specmatic MCP** provides intelligent guardrails throughout the process
+- Frontend and backend stay **synchronized** with the evolving API specification
+
+## 🚀 Quick Start
+
+> **⚡ Just One Prompt - No Contract Drift!**
+>
+> For the absolute fastest start, see the [TL;DR section](#-tldr---get-started-in-30-seconds) above. For detailed setup with alternatives, follow the steps below.
+
+### ✅ Prerequisites (Required)
+
+**Install Claude Code** (if not already installed):
+
+Follow installation instructions at [https://docs.anthropic.com/claude/docs/claude-code](https://docs.anthropic.com/claude/docs/claude-code)
+
+> **Note:** MCP servers are pre-configured in `claude_config.json` and will be automatically installed when you open this project.
+
+### 🎯 Usage - Try the Spec-Kit Workflow
+
+**Step 1:** **Open this project in Claude Code**:
+```bash
+claude
+```
+
+**Step 2:** **Try the API Design First workflow**:
+```
+/specify "create a product listing page"
+```
+
+**Step 3:** **Follow the spec-kit process**:
+```
+/plan
+/tasks
+```
+
+Then observe how Claude implements following the contract-first approach.
+
+TIP: use plan mode to review each step before proceeding
+
+### 🔄 Optional Reset
+**Reset the project to try again** (optional - Claude Code command available):
+```
+/reset-sample-project
+```
+
+---
+
+**🎉 Observe the API Design First + TDD process:**
+- ✨ **Specification Creation** (`/specify` command) - Define feature requirements
+- ✨ **Contract Analysis** (`/plan` command) - Analyze existing contracts for reuse before extending
+- ✨ **Failing Tests First** - Contract and resiliency tests MUST fail before any implementation
+- ✨ **Backend-First Implementation** - Implement routes and validation to make failing tests pass
+- ✨ **Organic API Evolution** - OpenAPI specification grows thoughtfully (first feature creates it, subsequent features extend it)
+- ✨ **Independent Development** - Frontend develops against mocks while backend implements contract
+- ✨ **Automatic Validation** - Specmatic MCP ensures contract compliance throughout
+- ✨ **Smart Contract Reuse** - Prevents API bloat through intelligent analysis
+
+## 📁 Project Structure
+
+```
+specmatic-mcp-sample-with-spec-kit/
+├── api_spec.yaml         # OpenAPI specification (evolves with each feature)
+├── specs/               # Feature specifications and plans
+│   ├── 001-product-listing/
+│   │   ├── spec.md     # Feature specification  
+│   │   ├── plan.md     # Implementation plan
+│   │   └── tasks.md    # Generated tasks
+│   └── 002-next-feature/
+├── backend/             # Node.js/Express API implementation (generated)
+├── frontend/           # React frontend application (generated) 
+├── memory/             # Project constitution and guidelines
+│   └── constitution.md
+├── templates/          # Spec-kit templates for feature development
+└── .claude/           # Spec-kit commands (specify, plan, tasks)
+```
+
+## 🎯 Key Benefits Demonstrated
+
+### Contract-First Development
+- OpenAPI specifications evolve organically through feature development
+- Each feature analyzes existing contracts for reuse before extending
+- Both frontend and backend are built to conform to the evolving contract
+- Smart contract analysis prevents API bloat and promotes reuse
+
+### True Test-Driven Development
+- Contract tests MUST fail before any backend implementation exists
+- Backend routes/endpoints implemented only to make failing tests pass
+- Resiliency tests MUST fail before input validation is added
+- Follows strict RED-GREEN-REFACTOR cycle throughout
+
+### Independent Development
+- Backend implemented first against failing contract tests
+- Frontend developed using Specmatic's mock server (port 9001) in parallel
+- No coordination needed - contract serves as the agreement between teams
+
+### Automatic Validation
+- Specmatic MCP automatically validates backend implementations
+- Contract tests ensure API compliance
+- Resiliency tests verify error handling and boundary conditions
+
+### Zero Dependencies
+- Specmatic runs as an MCP server through NPX
+- No need to add Specmatic dependencies to your project
+- Clean project structure with minimal tooling overhead
+
+## 🔧 How It Works
+
+1. **Spec-Kit Workflow**: Features developed through `specify` → `plan` → `tasks` → `implement` cycles
+
+2. **Smart Contract Evolution**:
+   - First feature creates initial OpenAPI specification at repository root
+   - Subsequent features analyze existing contracts for reuse opportunities  
+   - Only extends API when existing operations cannot support new features
+   - Prevents API bloat through intelligent contract analysis
+
+3. **Specmatic MCP Integration**:
+   - Provides contract testing capabilities for evolving specifications
+   - Offers mock server functionality for isolated frontend development
+   - Validates implementations against the current contract state
+   - Runs resiliency tests for error scenarios
+
+4. **Constitutional Governance**:
+   - All development follows constitutional principles in `/memory/constitution.md`
+   - Ensures consistent, high-quality feature development
+   - Maintains contract-first discipline throughout the process
+
+## 🏗️ Architecture Diagrams
+
+### Production Setup
+```
+┌─────────────────┐                                  ┌─────────────────┐
+│                 │ ────── HTTP Requests ──────────► │                 │
+│    Frontend     │                                  │    Backend      │
+│   (React App)   │        ┌─────────────────┐       │ (Express API)   │
+│                 │        │  api_spec.yaml  │       │                 │
+│   Port: 4000    │        │ (Evolved OpenAPI)│       │   Port: 3000    │
+│                 │        └─────────────────┘       │                 │
+|                 |                                  |                 |
+│                 │ ◄────── HTTP Responses ───────── │                 │
+└─────────────────┘                                  └─────────────────┘
+```
+
+### Development Setup - Frontend
+```
+┌─────────────────┐                     ┌─────────────────┐
+│                 │                     │                 │
+│    Frontend     │     Mock Requests   │ Specmatic Mock  │
+│   (React App)   │ ◄─────────────────► │    Server       │
+│                 │                     │                 │
+│   Port: 4000    │                     │   Port: 9001    │
+└─────────────────┘                     └─────────┬───────┘
+                                                  │
+                                                  │ Based on
+                                                  │
+                                                  ▼
+                                     ┌─────────────────────┐
+                                     │                     │
+                                     │   api_spec.yaml     │
+                                     │  (Evolved OpenAPI)  │
+                                     │                     │
+                                     └─────────────────────┘
+```
+
+### Development Setup - Backend
+```
+┌─────────────────┐                       ┌─────────────────┐
+│                 │                       │                 │
+│ Specmatic MCP   │ ───► Contract   ───►  │    Backend      │
+│    Tools        │      Testing          │ (Express API)   │
+│                 │                       │                 │
+│ (via NPX)       │ ───► Resiliency ───►  │   Port: 3000    │
+└─────────┬───────┘      Testing          └─────────────────┘
+          │
+          │ Validates against
+          │
+          ▼
+┌─────────────────────┐
+│                     │
+│   api_spec.yaml     │
+│  (Evolved OpenAPI)  │
+│                     │
+└─────────────────────┘
+```
+
+## 🎨 Contract Evolution Example
+
+As features are developed, the API evolves organically:
+
+**Feature 1** (`001-product-listing`):
+- Creates initial `api_spec.yaml` with GET /products endpoint
+- Includes product filtering by type (book, food, gadget, other)
+
+**Feature 2** (`002-product-creation`):
+- Analyzes existing contract → No POST endpoint exists
+- Extends `api_spec.yaml` with POST /products and validation schemas
+
+**Feature 3** (`003-product-search`):
+- Analyzes existing contract → GET /products with query params might suffice  
+- **Reuses existing endpoint** instead of creating new ones
+
+The complete API specification emerges through this thoughtful, feature-driven evolution.
+
+## 🏗️ API Design First Workflow
+
+This template demonstrates how teams should work using the spec-kit approach with **Test-Driven Development**:
+
+1. **Feature Specification**: Use `/specify` to create feature requirements and user stories
+2. **Contract Analysis**: Use `/plan` to analyze existing contracts and extend only if needed  
+3. **Task Generation**: Use `/tasks` to break down implementation into concrete steps
+4. **Backend-First Implementation** (RED-GREEN-REFACTOR):
+   - **RED**: Contract tests MUST FAIL (no routes/endpoints exist yet)
+   - **GREEN**: Implement just enough backend code to make contract tests pass
+   - **RED**: Resiliency tests MUST FAIL (no input validation exists yet)  
+   - **GREEN**: Add input validation to make resiliency tests pass
+   - **REFACTOR**: Clean up implementation while keeping tests green
+5. **Frontend Implementation**: Develop UI against Specmatic mock servers (port 9001) in parallel
+6. **Integration**: Switch frontend to real backend (port 3000) and verify end-to-end
+7. **Iteration**: Repeat for next feature, building on the evolved contract base
+
+**Key Insights**: 
+- The contract serves as the **agreement** between teams, enabling independent development
+- **Backend must be implemented FIRST** following strict TDD - tests fail, then implement to make them pass
+- Frontend develops against mocks while backend implements the real contract
+
+## 📚 Learn More
+
+- [Spec-Kit](https://github.com/github/spec-kit) - Methodology for API Design First development
+- [Specmatic MCP Server](https://github.com/specmatic/specmatic-mcp-server) - MCP server for contract testing and service virtualization
+
+---
+
+**Ready to see spec-kit contract evolution in action? Just ask Claude to build your first feature!**

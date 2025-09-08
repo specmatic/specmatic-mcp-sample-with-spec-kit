@@ -78,6 +78,12 @@ When creating this spec from a user prompt:
 - **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
 - **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
 
+### API Operations Required *(mandatory for all features)*
+- **Analysis**: Does this feature need new API operations, or can existing ones be reused?
+- **If reusing**: List existing endpoints that will support this feature
+- **If extending**: Specify only the new endpoints/schemas that must be added
+- **Justification**: Why new operations are needed (if any)
+
 ### Key Entities *(include if feature involves data)*
 - **[Entity 1]**: [What it represents, key attributes without implementation]
 - **[Entity 2]**: [What it represents, relationships to other entities]
@@ -99,6 +105,8 @@ When creating this spec from a user prompt:
 - [ ] Success criteria are measurable
 - [ ] Scope is clearly bounded
 - [ ] Dependencies and assumptions identified
+- [ ] API operations analysis completed (reuse vs. extend decision made)
+- [ ] Only necessary new endpoints specified (if extending)
 
 ---
 
@@ -110,6 +118,7 @@ When creating this spec from a user prompt:
 - [ ] Ambiguities marked
 - [ ] User scenarios defined
 - [ ] Requirements generated
+- [ ] API operations analysis completed
 - [ ] Entities identified
 - [ ] Review checklist passed
 

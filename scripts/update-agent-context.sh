@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Incrementally update agent context files based on new feature plan
 # Supports: CLAUDE.md, GEMINI.md, and .github/copilot-instructions.md
 # O(1) operation - only reads current context file and new plan.md
@@ -118,6 +118,12 @@ if tech_section:
     if "$NEW_DB" and "$NEW_DB" not in existing_tech and "$NEW_DB" != "N/A":
         new_additions.append(f"- $NEW_DB ($CURRENT_BRANCH)")
     
+    # Always ensure MCP technologies are present
+    if "Specmatic MCP" not in existing_tech:
+        new_additions.append("- Specmatic MCP (contract testing - mandatory)")
+    if "Playwright MCP" not in existing_tech:
+        new_additions.append("- Playwright MCP (UI automation testing - mandatory)")
+    
     if new_additions:
         updated_tech = existing_tech + "\n" + "\n".join(new_additions)
         content = content.replace(tech_section.group(0), f"## Active Technologies\n{updated_tech}\n\n")
@@ -144,6 +150,19 @@ if "$NEW_LANG" and f"# {NEW_LANG}" not in content:
             new_commands += "\ncargo test && cargo clippy"
         elif "JavaScript" in "$NEW_LANG" or "TypeScript" in "$NEW_LANG":
             new_commands += "\nnpm test && npm run lint"
+        
+        # Always add MCP testing commands for any new language
+        if "# MCP Server Management" not in content:
+            new_commands += "\n# MCP Server Management (mandatory)"
+            new_commands += "\n# Start Specmatic mock server on port 9001"
+            new_commands += "\n# Start backend on port 3000"
+            new_commands += "\n# Start frontend on port 4000" 
+            new_commands += "\n# Environment switching: REACT_APP_API_BASE_URL=http://localhost:9001 (dev) / http://localhost:3000 (prod)"
+            new_commands += "\n# Testing Commands (mandatory)"
+            new_commands += "\n# Run Specmatic MCP contract tests"
+            new_commands += "\n# Run Specmatic MCP resiliency tests"
+            new_commands += "\n# Run Playwright MCP browser tests"
+            new_commands += "\n# NO manual curl testing allowed"
         
         if "```bash" in content:
             content = re.sub(r'(## Commands\n\`\`\`bash\n).*?(\n\`\`\`)', 

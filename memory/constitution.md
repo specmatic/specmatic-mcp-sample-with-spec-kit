@@ -1,50 +1,64 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Specmatic MCP Sample Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Contract-First Development
+All features begin with OpenAPI specification definition. Backend and frontend implementations must strictly adhere to contract-defined interfaces. API contracts serve as the single source of truth for inter-service communication, data models, and validation rules.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Ordered Development Workflow
+Development follows a strict three-phase approach: Backend development (First Priority) - implement against OpenAPI contract; Frontend development (Second Priority) - develop against Specmatic mock servers; Integration testing (Third Priority) - verify end-to-end workflows with real services.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Contract Testing (NON-NEGOTIABLE)  
+Specmatic MCP contract testing is mandatory for all API implementations. Both contract tests and resiliency tests must pass before code integration. Manual testing with curl or similar tools is prohibited - all validation occurs through automated contract verification.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Environment-Based Component Isolation
+Components must be developed and tested in isolation before integration. Dev mode: Frontend connects to mock servers (port 9001); Prod mode: Frontend connects to real backend (port 3000). Each component validates independently against contract specifications.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Code Structure & Quality Standards
+Maintain clear separation of concerns with routes, models, controllers in separate files/folders. Use descriptive variable names, implement proper error handling, follow RESTful conventions, and return appropriate HTTP status codes as defined in OpenAPI specifications.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Technical Constraints
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### Technology Stack Requirements
+- Backend: Node.js with Express framework, in-memory data structures (no external databases)
+- Frontend: React application running on port 4000 only
+- API Specification: OpenAPI 3.0+ format defining all endpoints and schemas
+- Environment management: Use latest stable Node.js version (nvm use stable)
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+### Port Configuration Standards
+- Backend production server: Port 3000 (as defined in OpenAPI specification)
+- Frontend development server: Port 4000 (fixed requirement)
+- Specmatic mock server: Port 9001 (for frontend isolation testing)
+- Environment variables: REACT_APP_API_BASE_URL for API endpoint configuration
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Development Workflow
+
+### Phase-Based Implementation Process
+1. **Contract Definition**: Create or update OpenAPI specification with all endpoints, schemas, and validation rules
+2. **Backend Implementation**: Develop API endpoints strictly following OpenAPI contract, validate with Specmatic MCP
+3. **Frontend Mock Development**: Build UI components against Specmatic mock servers for complete isolation
+4. **Integration Validation**: Switch frontend to production mode and verify end-to-end functionality
+
+### Quality Gates
+- Contract tests must pass before any code integration
+- Resiliency tests are mandatory for all API implementations  
+- Frontend isolation testing required before backend integration
+- No manual testing tools (curl, Postman) - only automated contract verification
+- Server shutdown after successful test completion is mandatory
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+### Constitutional Authority
+This constitution supersedes all other development practices and guidelines. All feature development, code reviews, and architectural decisions must verify compliance with these principles. Any deviation requires explicit documentation and justification.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+### Compliance Requirements
+- All PRs must demonstrate adherence to Contract-First Development principles
+- Specmatic MCP test results are mandatory for code integration approval
+- Phase-based workflow must be followed without exception
+- Component isolation testing is required before integration phases
+- Use templates/spec-template.md for creating feature specifications aligned with these principles
+
+### Amendment Process
+Constitutional changes require documentation of impact, approval from project stakeholders, and migration plan for existing implementations. Version control tracks all constitutional modifications.
+
+**Version**: 1.0.0 | **Ratified**: 2025-09-07 | **Last Amended**: 2025-09-07

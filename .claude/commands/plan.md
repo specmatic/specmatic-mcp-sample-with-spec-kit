@@ -22,8 +22,9 @@ Given the implementation details provided as an argument, do this:
    - Follow error handling and gate checks as specified
    - Let the template guide artifact generation in $SPECS_DIR:
      * Phase 0 generates research.md
-     * Phase 1 generates data-model.md, contracts/, quickstart.md
+     * Phase 1 generates data-model.md, root OpenAPI spec (created or updated), quickstart.md
      * Phase 2 generates tasks.md
+   - **CRITICAL**: Analyze existing OpenAPI spec at repository root before creating/extending
    - Incorporate user-provided details from arguments into Technical Context: $ARGUMENTS
    - Update Progress Tracking as you complete each phase
 

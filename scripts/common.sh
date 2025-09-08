@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Common functions and variables for all scripts
 
 # Get repository root
