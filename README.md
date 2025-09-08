@@ -13,7 +13,16 @@ claude mcp add playwright npx "@playwright/mcp@latest"
 claude
 ```
 
-Then try the spec-kit workflow: `/specify "create a product listing page"` (use plan mode first, then autoaccept)
+Then try the spec-kit workflow: 
+```
+/specify product listing page
+- each product has name, description, price and category, all of these properties are mandatory
+- category can be only "food", "gadget", "book" or "other
+- default sort order is alphabetical by name
+- users should be able to filter by category
+- when there are no products to display in general or because of category filter, show no products matching your requirements
+- max 10 products per page, if it exceeds 10 say next button and if we are in next page then show prev option also
+```
 
 And observe Claude use the spec-kit to evolve the API contract organically through feature development!
 
