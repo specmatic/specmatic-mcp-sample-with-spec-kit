@@ -128,7 +128,7 @@ ios/ or android/
 └── [platform-specific structure]
 ```
 
-**Structure Decision**: [DEFAULT to Option 1 unless Technical Context indicates web/mobile app]
+**Structure Decision**: [DEFAULT to Option 1 unless Technical Context indicates web/mobile app - BACKEND MUST BE COMPLETED FIRST before frontend scaffolding]
 
 ## Phase 0: Outline & Research
 1. **Extract unknowns from Technical Context** above:
@@ -172,7 +172,8 @@ ios/ or android/
    - Setup resiliency tests for boundary conditions
    - Tests must fail (no implementation yet)
    - Focus tests on new/modified endpoints only (if extending existing spec)
-   - No manual curl testing allowed
+   - No manual curl testing allowed - rely on contract and resiliency test feedback
+   - Backend implementation must be completed (all contract and resiliency tests passing) before proceeding to frontend
 
 4. **Extract test scenarios** from user stories:
    - Each story → UI component test scenario (for frontend components)
