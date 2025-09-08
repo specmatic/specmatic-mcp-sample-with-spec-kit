@@ -5,6 +5,11 @@ This project demonstrates **contract-first development** using a **spec-kit** ap
 ## 🚀 TL;DR - Get Started Quickly
 
 ```bash
+# Configure MCP servers
+claude mcp add specmatic npx "@specmatic/specmatic-mcp"
+claude mcp add playwright npx "@playwright/mcp@latest"
+
+# Open project
 claude
 ```
 
@@ -43,7 +48,12 @@ This template shows **API Design First methodology** in action. Starting from **
 
 Follow installation instructions at [https://docs.anthropic.com/claude/docs/claude-code](https://docs.anthropic.com/claude/docs/claude-code)
 
-> **Note:** MCP servers are pre-configured in `claude_config.json` and will be automatically installed when you open this project.
+**Configure MCP servers** (required):
+
+```bash
+claude mcp add specmatic npx "@specmatic/specmatic-mcp"
+claude mcp add playwright npx "@playwright/mcp@latest"
+```
 
 ### 🎯 Usage - Try the Spec-Kit Workflow
 
