@@ -1,6 +1,6 @@
 # Specmatic MCP Sample Project
 
-This project demonstrates **contract-first development** using a **spec-kit** approach where OpenAPI specifications evolve organically through feature development. Each feature analyzes existing contracts for reuse before extending the API, using **Specmatic MCP** as intelligent guardrails throughout the process.
+This project demonstrates **contract-first development** using a **[spec-kit]([url](https://github.com/github/spec-kit))** approach where OpenAPI specifications evolve organically through feature development. Each feature analyzes existing contracts for reuse before extending the API, using **Specmatic MCP** as intelligent guardrails throughout the process.
 
 ## 🚀 Quick Start
 
