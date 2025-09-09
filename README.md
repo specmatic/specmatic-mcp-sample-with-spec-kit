@@ -6,7 +6,7 @@ This project demonstrates **contract-first development** using a **spec-kit** ap
 
 ```bash
 # Configure MCP servers
-claude mcp add specmatic npx "@specmatic/specmatic-mcp"
+claude mcp add specmatic npx "specmatic-mcp@latest"
 claude mcp add playwright npx "@playwright/mcp@latest"
 
 # Open project
