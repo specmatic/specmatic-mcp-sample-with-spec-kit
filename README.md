@@ -20,8 +20,7 @@ Then try the spec-kit workflow:
 - category can be only "food", "gadget", "book" or "other
 - default sort order is alphabetical by name
 - users should be able to filter by category
-- when there are no products to display in general or because of category filter, show no products matching your requirements
-- max 10 products per page, if it exceeds 10 say next button and if we are in next page then show prev option also
+- no pagination required, just show all available products as per category filter
 ```
 
 And observe Claude use the spec-kit to evolve the API contract organically through feature development!
