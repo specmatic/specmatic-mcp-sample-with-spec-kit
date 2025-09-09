@@ -2,7 +2,7 @@
 
 This project demonstrates **contract-first development** using a **spec-kit** approach where OpenAPI specifications evolve organically through feature development. Each feature analyzes existing contracts for reuse before extending the API, using **Specmatic MCP** as intelligent guardrails throughout the process.
 
-## 🚀 TL;DR - Get Started Quickly
+## 🚀 Quick Start
 
 ```bash
 # Configure MCP servers
@@ -13,18 +13,29 @@ claude mcp add playwright npx "@playwright/mcp@latest"
 claude
 ```
 
-Then try the spec-kit workflow: 
+**Try the spec-kit workflow:**
 ```
 /specify product listing page
 - each product has name, description, price and category, all of these properties are mandatory
-- category can be only "food", "gadget", "book" or "other
+- category can be only "food", "gadget", "book" or "other"
 - default sort order is alphabetical by name
 - users should be able to filter by category
 - no pagination required, just show all available products as per category filter
 ```
 
-And observe Claude use the spec-kit to evolve the API contract organically through feature development!
+```
+/plan Build the backend used nodeJS with in memory storage and frontend using React
+```
 
+```
+/tasks To build a MVP version of this feature
+```
+
+```
+implement T001-T006
+```
+
+Execute tasks in small chunks or all at once. The gated tasks make it easy to pause/resume without losing context.
 
 ## 📦 Specmatic MCP Resources
 
@@ -44,46 +55,10 @@ This template shows **API Design First methodology** in action. Starting from **
 - **Specmatic MCP** provides intelligent guardrails throughout the process
 - Frontend and backend stay **synchronized** with the evolving API specification
 
-## 🚀 Quick Start
-
-> **⚡ Just One Prompt - No Contract Drift!**
->
-> For the absolute fastest start, see the [TL;DR section](#-tldr---get-started-in-30-seconds) above. For detailed setup with alternatives, follow the steps below.
-
-### ✅ Prerequisites (Required)
+### ✅ Prerequisites
 
 **Install Claude Code** (if not already installed):
-
 Follow installation instructions at [https://docs.anthropic.com/claude/docs/claude-code](https://docs.anthropic.com/claude/docs/claude-code)
-
-**Configure MCP servers** (required):
-
-```bash
-claude mcp add specmatic npx "@specmatic/specmatic-mcp"
-claude mcp add playwright npx "@playwright/mcp@latest"
-```
-
-### 🎯 Usage - Try the Spec-Kit Workflow
-
-**Step 1:** **Open this project in Claude Code**:
-```bash
-claude
-```
-
-**Step 2:** **Try the API Design First workflow**:
-```
-/specify "create a product listing page"
-```
-
-**Step 3:** **Follow the spec-kit process**:
-```
-/plan
-/tasks
-```
-
-Then observe how Claude implements following the contract-first approach.
-
-TIP: use plan mode to review each step before proceeding
 
 ### 🔄 Optional Reset
 **Reset the project to try again** (optional - Claude Code command available):
@@ -91,17 +66,6 @@ TIP: use plan mode to review each step before proceeding
 /reset-sample-project
 ```
 
----
-
-**🎉 Observe the API Design First + TDD process:**
-- ✨ **Specification Creation** (`/specify` command) - Define feature requirements
-- ✨ **Contract Analysis** (`/plan` command) - Analyze existing contracts for reuse before extending
-- ✨ **Failing Tests First** - Contract and resiliency tests MUST fail before any implementation
-- ✨ **Backend-First Implementation** - Implement routes and validation to make failing tests pass
-- ✨ **Organic API Evolution** - OpenAPI specification grows thoughtfully (first feature creates it, subsequent features extend it)
-- ✨ **Independent Development** - Frontend develops against mocks while backend implements contract
-- ✨ **Automatic Validation** - Specmatic MCP ensures contract compliance throughout
-- ✨ **Smart Contract Reuse** - Prevents API bloat through intelligent analysis
 
 ## 📁 Project Structure
 
@@ -250,8 +214,6 @@ The complete API specification emerges through this thoughtful, feature-driven e
 
 ## 🏗️ API Design First Workflow
 
-This template demonstrates how teams should work using the spec-kit approach with **Test-Driven Development**:
-
 1. **Feature Specification**: Use `/specify` to create feature requirements and user stories
 2. **Contract Analysis**: Use `/plan` to analyze existing contracts and extend only if needed  
 3. **Task Generation**: Use `/tasks` to break down implementation into concrete steps
@@ -264,11 +226,6 @@ This template demonstrates how teams should work using the spec-kit approach wit
 5. **Frontend Implementation**: Develop UI against Specmatic mock servers (port 9001) in parallel
 6. **Integration**: Switch frontend to real backend (port 3000) and verify end-to-end
 7. **Iteration**: Repeat for next feature, building on the evolved contract base
-
-**Key Insights**: 
-- The contract serves as the **agreement** between teams, enabling independent development
-- **Backend must be implemented FIRST** following strict TDD - tests fail, then implement to make them pass
-- Frontend develops against mocks while backend implements the real contract
 
 ## 📚 Learn More
 
