@@ -128,7 +128,7 @@ ios/ or android/
 └── [platform-specific structure]
 ```
 
-**Structure Decision**: [DEFAULT to Option 1 unless Technical Context indicates web/mobile app - BACKEND MUST BE COMPLETED FIRST before frontend scaffolding]
+**Structure Decision**: [DEFAULT to Option 1 unless Technical Context indicates web/mobile app - Check for existing backend/frontend directories before scaffolding new projects]
 
 ## Phase 0: Outline & Research
 1. **Extract unknowns from Technical Context** above:
@@ -159,9 +159,11 @@ ios/ or android/
    - Validation rules from requirements
    - State transitions if applicable
 
-2. **Analyze existing API contracts** and generate new ones as needed:
+2. **Analyze existing project structure and API contracts**:
+   - Check for existing backend/ and frontend/ directories at repository root
    - Check if OpenAPI spec exists at repository root
-   - If exists: Analyze whether existing operations can support this feature
+   - If existing projects found: Plan incremental updates to existing codebase
+   - If existing spec found: Analyze whether existing operations can support this feature
    - If reuse possible: Document which existing endpoints/schemas to use
    - If extension needed: Add only necessary new paths/components to existing spec
    - If no spec exists: Create initial OpenAPI spec at repository root
@@ -173,7 +175,7 @@ ios/ or android/
    - Tests must fail (no implementation yet)
    - Focus tests on new/modified endpoints only (if extending existing spec)
    - No manual curl testing allowed - rely on contract and resiliency test feedback
-   - Backend implementation must be completed (all contract and resiliency tests passing) before proceeding to frontend
+   - Plan parallel development: backend and frontend can develop simultaneously after contract definition
 
 4. **Extract test scenarios** from user stories:
    - Each story → UI component test scenario (for frontend components)

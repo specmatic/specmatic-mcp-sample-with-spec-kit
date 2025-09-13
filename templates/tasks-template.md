@@ -13,8 +13,8 @@
    → contracts/: Each file → Specmatic MCP contract test task
    → research.md: Extract decisions → setup tasks
 3. Generate tasks by THREE-PHASE approach:
-   → BACKEND PHASE: Setup, contract tests (RED), implementation (GREEN), contract pass verification, resiliency tests (RED), validation (GREEN), resiliency pass verification
-   → FRONTEND PHASE: Mock server setup, UI development, component tests, shutdown mocks
+   → BACKEND PHASE: Check existing structure, setup/update, contract tests (RED), implementation (GREEN), contract pass verification, resiliency tests (RED), validation (GREEN), resiliency pass verification (can run in parallel with frontend)
+   → FRONTEND PHASE: Check existing structure, mock server setup, UI development, component tests, shutdown mocks (can run in parallel with backend)
    → INTEGRATION PHASE: Real backend startup, frontend reconfiguration, integration tests, shutdown all
 4. Apply task rules:
    → Different files = mark [P] for parallel
@@ -43,12 +43,12 @@
 - **Mobile**: `api/src/`, `ios/src/` or `android/src/`
 - Paths shown below assume single project - adjust based on plan.md structure
 
-## BACKEND PHASE - Complete Before Frontend
+## BACKEND PHASE - Can Run in Parallel with Frontend
 
 ### Phase 3.1: Backend Setup
-- [ ] T001 Create backend project structure per implementation plan
-- [ ] T002 Initialize [language] backend project with [framework] dependencies
-- [ ] T003 [P] Configure backend linting and formatting tools
+- [ ] T001 Check for existing backend directory, create or update project structure per implementation plan
+- [ ] T002 Initialize or update [language] backend project with [framework] dependencies
+- [ ] T003 [P] Configure or update backend linting and formatting tools
 
 ### Phase 3.2: Backend Contract Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: Contract RED-GREEN-REFACTOR Cycle - Contract tests MUST be written and MUST FAIL before ANY implementation**
@@ -85,16 +85,16 @@
 - [ ] T020 Deploy contract-test-runner agent: Final backend verification - ALL contract tests MUST pass
 - [ ] T021 Deploy api-resiliency-tester agent: Final backend verification - ALL resiliency tests MUST pass
 - [ ] T022 Remove duplication (REFACTOR while keeping tests green)
-**BACKEND COMPLETION GATE: All contract and resiliency tests must pass before proceeding to frontend**
+**BACKEND COMPLETION GATE: All contract and resiliency tests must pass before integration phase**
 
-## FRONTEND PHASE - Start After Backend Complete
+## FRONTEND PHASE - Can Run in Parallel with Backend
 
 ### Phase 4.1: Frontend Setup with Mocks
 - [ ] T023 Deploy api-mock-manager agent: Start Specmatic mock server on port 9001
-- [ ] T024 Create frontend project structure
-- [ ] T025 Initialize frontend project with framework dependencies
+- [ ] T024 Check for existing frontend directory, create or update project structure
+- [ ] T025 Initialize or update frontend project with framework dependencies
 - [ ] T026 Configure frontend environment: REACT_APP_API_BASE_URL=http://localhost:9001
-- [ ] T027 [P] Configure frontend linting and formatting tools
+- [ ] T027 [P] Configure or update frontend linting and formatting tools
 
 ### Phase 4.2: Frontend Development & Component Testing
 **Build against mock API - No RED-GREEN cycle needed for UI**
@@ -124,7 +124,7 @@
 - **CRITICAL GATE**: Contract tests pass (T010) before resiliency tests begin (T011)
 - Resiliency tests setup (T011) before validation implementation (T012-T013)
 - Resiliency tests pass (T014) before integration (T015-T018)
-- Backend completion gate: T020-T021 must pass before Frontend Phase
+- Backend completion gate: T020-T021 must pass before Integration Phase
 
 **Frontend Phase Dependencies:**
 - Mock server (T023) before frontend development (T024-T032)
@@ -169,7 +169,7 @@ Agent: ui-component-tester
 - Always shutdown mocks when their use is over
 - Commit after each task
 - Avoid: vague tasks, same file conflicts
-- **Phase barriers**: Complete backend fully before frontend, complete frontend before integration
+- **Phase barriers**: Backend and frontend can develop in parallel, both must complete before integration
 
 ## Task Generation Rules
 *Applied during main() execution*
@@ -191,12 +191,13 @@ Agent: ui-component-tester
 
 4. **Ordering**:
    - **Backend Phase**: Setup → Contract Tests (RED) → Models → Services → Endpoints (GREEN) → Contract Pass Verification → Resiliency Tests Assessment → Fix Any Issues Found → Final Resiliency Verification → Integration & Polish (REFACTOR)
-   - **Frontend Phase**: Mock setup → Components → Component tests → Mock shutdown
+   - **Frontend Phase**: Mock setup → Components → Component tests → Mock shutdown (can run in parallel with Backend Phase)
    - **Integration Phase**: Real backend → Frontend reconfiguration → Integration tests → Shutdown all
    - **CRITICAL**: Contract tests must fully pass before resiliency tests begin
    - **PRAGMATIC**: Resiliency tests may pass or fail initially - fix issues found and proceed
+   - Backend and Frontend phases can execute in parallel after OpenAPI contract is defined
    - Dependencies block parallel execution within phases
-   - Phase completion gates block progression to next phase
+   - Both Backend and Frontend phase completion gates block progression to Integration phase
 
 ## Validation Checklist
 *GATE: Checked by main() before returning*

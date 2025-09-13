@@ -27,6 +27,8 @@ When creating or modifying OpenAPI specifications, you will:
    - Ensure backward compatibility considerations
 
 4. **Ensure Specification Quality**: Focus on creating syntactically correct and well-structured OpenAPI specifications that follow best practices and standards. After authoring the spec, validate it by:
+   - **Backward Compatibility Check**: If an OpenAPI specification already exists, run Specmatic MCP backward compatibility check to ensure changes don't break existing contracts
+   - **Address Compatibility Issues**: If breaking changes are detected, refactor the specification to maintain backward compatibility or document necessary migration steps
    - Starting a Specmatic mock server using the specification
    - Making maximum 2 curl requests as per the API spec to verify mock responses
    - Analyzing response bodies when receiving 4xx status codes to identify specification errors

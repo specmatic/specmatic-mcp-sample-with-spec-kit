@@ -5,14 +5,14 @@
 ### I. Contract-First Development
 All features begin with OpenAPI specification definition. Backend and frontend implementations must strictly adhere to contract-defined interfaces. API contracts serve as the single source of truth for inter-service communication, data models, and validation rules.
 
-### II. Ordered Development Workflow
-Development follows a strict three-phase approach: Backend development (First Priority) - implement against OpenAPI contract; Frontend development (Second Priority) - develop against Specmatic mock servers; Component testing (Third Priority) - verify UI components and contract compliance independently.
+### II. Parallel Development Workflow
+Development follows a contract-first approach enabling parallel execution: OpenAPI contract definition (Foundation) - serves as coordination point for parallel development; Backend and Frontend development (Parallel Execution) - backend implements against contract while frontend develops against Specmatic mock servers simultaneously; Component testing (Final Phase) - verify UI components and contract compliance independently after parallel development completion.
 
 ### III. Contract Testing (NON-NEGOTIABLE)  
 Specmatic MCP contract testing is mandatory for all API implementations. Both contract tests and resiliency tests must pass before code integration. UI component testing using ui-component-tester agent is mandatory for frontend components. Manual testing with curl or similar tools is prohibited - all validation occurs through automated contract verification and component testing.
 
 ### IV. Environment-Based Component Isolation
-Components must be developed and tested in isolation before integration. Dev mode: Frontend connects to mock servers (port 9001); Prod mode: Frontend connects to real backend (port 3000). Each component validates independently against contract specifications using specialized MCP agents.
+Components must be developed and tested in isolation with parallel development support. OpenAPI contract serves as the coordination interface enabling simultaneous development. Dev mode: Frontend connects to mock servers (port 9001) during parallel development; Prod mode: Frontend connects to real backend (port 3000) after backend completion. Each component validates independently against contract specifications using specialized MCP agents.
 
 ### V. Code Structure & Quality Standards
 Maintain clear separation of concerns with routes, models, controllers in separate files/folders. Use descriptive variable names, implement proper error handling, follow RESTful conventions, and return appropriate HTTP status codes as defined in OpenAPI specifications.
@@ -35,14 +35,17 @@ Maintain clear separation of concerns with routes, models, controllers in separa
 
 ### Phase-Based Implementation Process
 1. **Contract Definition**: Create or update OpenAPI specification with all endpoints, schemas, and validation rules
-2. **Backend Implementation**: Develop API endpoints strictly following OpenAPI contract, validate with Specmatic MCP
-3. **Frontend Mock Development**: Build UI components against Specmatic mock servers for complete isolation
-4. **Component Validation**: Test UI components independently using ui-component-tester agent and validate contract compliance
+2. **Parallel Development Phase**: Backend and Frontend development execute simultaneously:
+   - **Backend Track**: Develop API endpoints strictly following OpenAPI contract, validate with Specmatic MCP
+   - **Frontend Track**: Build UI components against Specmatic mock servers for complete isolation
+3. **Integration & Component Validation**: Test UI components independently using ui-component-tester agent, validate contract compliance, and perform end-to-end integration testing
 
 ### Quality Gates
-- Contract tests must pass before any code integration
+- OpenAPI contract definition must be complete before parallel development begins
+- Contract tests must pass for backend track completion
 - Resiliency tests are mandatory for all API implementations  
-- UI component testing required using ui-component-tester agent
+- UI component testing required using ui-component-tester agent for frontend track
+- Integration testing required after both tracks complete
 - No manual testing tools (curl, Postman) - only automated contract verification and component testing
 - Server shutdown after successful test completion is mandatory
 
@@ -55,7 +58,7 @@ This constitution supersedes all other development practices and guidelines. All
 - All PRs must demonstrate adherence to Contract-First Development principles
 - Specmatic MCP test results are mandatory for code integration approval
 - UI component test results using ui-component-tester agent are mandatory for frontend changes
-- Phase-based workflow must be followed without exception
+- Parallel development workflow must be followed with proper OpenAPI contract coordination
 - Component isolation testing is required using specialized MCP agents
 - Use templates/spec-template.md for creating feature specifications aligned with these principles
 

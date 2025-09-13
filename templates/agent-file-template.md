@@ -16,10 +16,13 @@ Auto-generated from all feature plans. Last updated: [DATE]
 [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES]
 
 # MCP Server Management (mandatory for all features)
-# Start Specmatic mock server on port 9001
-# Start backend on port 3000  
-# Start frontend on port 4000
+# Parallel Development Support:
+# - Backend and frontend can develop simultaneously after OpenAPI contract
+# - Start Specmatic mock server on port 9001 for frontend development
+# - Start backend on port 3000 (can run in parallel with frontend)  
+# - Start frontend on port 4000 (can run in parallel with backend)
 # Environment switching: REACT_APP_API_BASE_URL=http://localhost:9001 (dev) / http://localhost:3000 (prod)
+# Backward compatibility: Run compatibility checks for existing OpenAPI specs
 
 # Testing Commands (mandatory)
 # Run Specmatic MCP contract tests
@@ -32,8 +35,10 @@ Auto-generated from all feature plans. Last updated: [DATE]
 
 ## MCP Testing Requirements
 - Contract-First Development: All features start with OpenAPI specification
-- Ordered workflow: Backend (port 3000) → Frontend (port 4000) → Integration
+- Parallel Development Workflow: Backend (port 3000) and Frontend (port 4000) develop simultaneously after OpenAPI contract definition
 - Environment isolation: dev mode (mock port 9001) → prod mode (backend port 3000)
+- OpenAPI backward compatibility checks required for existing specifications
+- Incremental updates: Check for existing backend/frontend directories before scaffolding
 - Mandatory: Specmatic MCP contract + resiliency tests must pass
 - Mandatory: Playwright MCP browser testing for frontend
 - Prohibited: Manual curl or Postman testing
