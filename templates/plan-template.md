@@ -184,11 +184,11 @@ ios/ or android/
    - Include environment switching (dev mode: port 9001, prod mode: port 3000)
 
 5. **Deploy specialized MCP agents** for feature implementation:
-   - **openapi-spec-author**: Create/update root API specification based on contract analysis
-   - **contract-test-runner**: Setup contract tests for new/modified endpoints  
-   - **api-resiliency-tester**: Setup boundary condition tests
-   - **api-mock-manager**: Configure mock servers for frontend development
-   - **ui-component-tester**: Setup component tests for UI elements
+   - **@agent-openapi-spec-author**: Create/update root API specification based on contract analysis
+   - **@agent-contract-test-runner**: Setup contract tests for new/modified endpoints
+   - **@agent-api-resiliency-tester**: Setup boundary condition tests
+   - **@agent-api-mock-manager**: Configure mock servers for frontend development
+   - **@agent-ui-component-tester**: Setup component tests for UI elements
 
 6. **Update agent file incrementally** (O(1) operation):
    - Run `/scripts/update-agent-context.sh [claude|gemini|copilot]` for your AI assistant
@@ -206,9 +206,10 @@ ios/ or android/
 **Task Generation Strategy**:
 - Load `/templates/tasks-template.md` as base
 - Generate tasks from Phase 1 design docs (root OpenAPI spec, data model, quickstart)
-- Each new/modified endpoint → contract-test-runner agent task [P]
-- Each new/modified endpoint → api-resiliency-tester agent task [P]
-- Each entity → model creation task [P] 
+- Two parallel development tracks:
+  - **Frontend Track**: @agent-api-mock-manager → UI development [P]
+  - **Backend Track**: @agent-contract-test-runner → @agent-api-resiliency-tester (sequential within track)
+- Each entity → model creation task [P]
 - Each user story → integration test task
 - Implementation tasks to make tests pass
 

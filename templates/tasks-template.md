@@ -54,7 +54,7 @@
 **CRITICAL: Contract RED-GREEN-REFACTOR Cycle - Contract tests MUST be written and MUST FAIL before ANY implementation**
 **NO MANUAL CURL TESTING - Use only Specialized MCP Agents**
 **VERIFY: Contract tests fail because NO routes/endpoints exist yet**
-- [ ] T004 Deploy contract-test-runner agent: Setup Specmatic MCP contract tests (must fail initially)
+- [ ] T004 @agent-contract-test-runner: Setup Specmatic MCP contract tests (must fail initially)
 
 ### Phase 3.3: Backend Implementation (ONLY after contract tests are failing)
 **GREEN Phase: Implement JUST ENOUGH to make failing contract tests pass**
@@ -63,16 +63,16 @@
 - [ ] T007 [P] CLI --create-user in backend/src/cli/user_commands.py
 - [ ] T008 POST /api/users endpoint (make contract tests pass)
 - [ ] T009 GET /api/users/{id} endpoint (make contract tests pass)
-- [ ] T010 Deploy contract-test-runner agent: Verify contract tests now pass (GREEN)
+- [ ] T010 @agent-contract-test-runner: Verify contract tests now pass (GREEN)
 **VERIFY: All contract tests now pass before proceeding to resiliency phase**
 
 ### Phase 3.4: Backend Resiliency Tests (ONLY after contract tests pass)
 **CRITICAL: Start ONLY after contract tests are GREEN**
 **PRAGMATIC APPROACH: Tests may pass or fail - fix any failures found and proceed**
-- [ ] T011 Deploy api-resiliency-tester agent: Run Specmatic MCP boundary condition tests and assess current state
+- [ ] T011 @agent-api-resiliency-tester: Run Specmatic MCP boundary condition tests and assess current state
 - [ ] T012 Input validation (fix any resiliency test failures found in T011)
 - [ ] T013 Error handling and logging (fix any resiliency test failures found in T011)
-- [ ] T014 Deploy api-resiliency-tester agent: Final resiliency test verification - ensure all pass
+- [ ] T014 @agent-api-resiliency-tester: Final resiliency test verification - ensure all pass
 **VERIFY: All resiliency tests now pass**
 
 ### Phase 3.5: Backend Integration & Polish
@@ -82,15 +82,15 @@
 - [ ] T017 Request/response logging
 - [ ] T018 CORS and security headers
 - [ ] T019 [P] Performance validation tests
-- [ ] T020 Deploy contract-test-runner agent: Final backend verification - ALL contract tests MUST pass
-- [ ] T021 Deploy api-resiliency-tester agent: Final backend verification - ALL resiliency tests MUST pass
+- [ ] T020 @agent-contract-test-runner: Final backend verification - ALL contract tests MUST pass
+- [ ] T021 @agent-api-resiliency-tester: Final backend verification - ALL resiliency tests MUST pass
 - [ ] T022 Remove duplication (REFACTOR while keeping tests green)
 **BACKEND COMPLETION GATE: All contract and resiliency tests must pass before integration phase**
 
 ## FRONTEND PHASE - Can Run in Parallel with Backend
 
 ### Phase 4.1: Frontend Setup with Mocks
-- [ ] T023 Deploy api-mock-manager agent: Start Specmatic mock server on port 9001
+- [ ] T023 @agent-api-mock-manager: Start Specmatic mock server on port 9001
 - [ ] T024 Check for existing frontend directory, create or update project structure
 - [ ] T025 Initialize or update frontend project with framework dependencies
 - [ ] T026 Configure frontend environment: REACT_APP_API_BASE_URL=http://localhost:9001
@@ -100,17 +100,17 @@
 **Build against mock API - No RED-GREEN cycle needed for UI**
 - [ ] T028 [P] User registration component in frontend/src/components/UserRegistration.js
 - [ ] T029 [P] User profile component in frontend/src/components/UserProfile.js
-- [ ] T030 [P] Deploy ui-component-tester agent: Component test for user registration form
-- [ ] T031 [P] Deploy ui-component-tester agent: Component test for user profile display
-- [ ] T032 [P] Deploy ui-component-tester agent: Component test auth flow with mock server
-- [ ] T033 Deploy api-mock-manager agent: Shutdown Specmatic mock servers (port 9001)
+- [ ] T030 [P] @agent-ui-component-tester: Component test for user registration form
+- [ ] T031 [P] @agent-ui-component-tester: Component test for user profile display
+- [ ] T032 [P] @agent-ui-component-tester: Component test auth flow with mock server
+- [ ] T033 @agent-api-mock-manager: Shutdown Specmatic mock servers (port 9001)
 
 ## INTEGRATION PHASE - Final Integration
 
 ### Phase 5.1: Real Backend Integration
 - [ ] T034 Start real backend on port 3000
 - [ ] T035 Reconfigure frontend: REACT_APP_API_BASE_URL=http://localhost:3000
-- [ ] T036 Deploy ui-component-tester agent: Integration tests with real backend
+- [ ] T036 @agent-ui-component-tester: Integration tests with real backend
 - [ ] T037 [P] End-to-end workflow validation
 - [ ] T038 [P] Performance tests (<200ms)
 - [ ] T039 [P] Update documentation
@@ -144,21 +144,18 @@ Task: "User model in backend/src/models/user.py"
 Task: "UserService CRUD in backend/src/services/user_service.py" 
 Task: "CLI --create-user in backend/src/cli/user_commands.py"
 
-# NOTE: Contract and resiliency tests are now SEQUENTIAL
-# T004 → T005-T009 → T010 (verify contract pass) → T011 → T012-T013 → T014 (verify resiliency pass)
+# NOTE: Contract and resiliency tests are SEQUENTIAL (no [P] markers)
+# Backend Track: T004 @agent-contract-test-runner → T005-T009 → T010 @agent-contract-test-runner → T011 @agent-api-resiliency-tester → T012-T013 → T014 @agent-api-resiliency-tester
 ```
 
 ### Frontend Phase Parallel Tasks:
 ```
-# Launch T030-T032 together:
-Task: "Component test for user registration form"
-Agent: ui-component-tester
+# Launch T030-T032 together (UI component tests can be parallel):
+Task: "@agent-ui-component-tester: Component test for user registration form" [P]
 
-Task: "Component test for user profile display"
-Agent: ui-component-tester
+Task: "@agent-ui-component-tester: Component test for user profile display" [P]
 
-Task: "Component test auth flow with mock server"
-Agent: ui-component-tester
+Task: "@agent-ui-component-tester: Component test auth flow with mock server" [P]
 ```
 
 ## Notes
@@ -175,8 +172,8 @@ Agent: ui-component-tester
 *Applied during main() execution*
 
 1. **From Contracts**:
-   - Each contract file → contract-test-runner agent: Specmatic MCP contract test task (sequential, no [P])
-   - Each contract file → api-resiliency-tester agent: Specmatic MCP resiliency test task (sequential, AFTER contract tests pass)
+   - Each contract file → @agent-contract-test-runner: Specmatic MCP contract test task (sequential, no [P])
+   - Each contract file → @agent-api-resiliency-tester: Specmatic MCP resiliency test task (sequential, AFTER contract tests pass)
    - Each endpoint → implementation task
    
 2. **From Data Model**:
@@ -184,10 +181,10 @@ Agent: ui-component-tester
    - Relationships → service layer tasks
    
 3. **From User Stories**:
-   - Each story → ui-component-tester agent: Component test [P] (if frontend)
-   - Each story → contract test [P] (via Specmatic MCP)
+   - Each story → @agent-ui-component-tester: Component test [P] (if frontend)
+   - Each story → contract test (via @agent-contract-test-runner, sequential)
    - Quickstart scenarios → validation tasks
-   - Environment switching → api-mock-manager agent tasks (dev/prod mode)
+   - Environment switching → @agent-api-mock-manager tasks (dev/prod mode)
 
 4. **Ordering**:
    - **Backend Phase**: Setup → Contract Tests (RED) → Models → Services → Endpoints (GREEN) → Contract Pass Verification → Resiliency Tests Assessment → Fix Any Issues Found → Final Resiliency Verification → Integration & Polish (REFACTOR)

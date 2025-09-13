@@ -25,9 +25,9 @@ Auto-generated from all feature plans. Last updated: [DATE]
 # Backward compatibility: Run compatibility checks for existing OpenAPI specs
 
 # Testing Commands (mandatory)
-# Run Specmatic MCP contract tests
-# Run Specmatic MCP resiliency tests  
-# Run Playwright MCP browser tests
+# @agent-contract-test-runner: Run Specmatic MCP contract tests
+# @agent-api-resiliency-tester: Run Specmatic MCP resiliency tests
+# @agent-ui-component-tester: Run Playwright MCP browser tests
 # NO manual curl testing allowed
 
 ## Code Style
@@ -39,8 +39,8 @@ Auto-generated from all feature plans. Last updated: [DATE]
 - Environment isolation: dev mode (mock port 9001) → prod mode (backend port 3000)
 - OpenAPI backward compatibility checks required for existing specifications
 - Incremental updates: Check for existing backend/frontend directories before scaffolding
-- Mandatory: Specmatic MCP contract + resiliency tests must pass
-- Mandatory: Playwright MCP browser testing for frontend
+- Mandatory: @agent-contract-test-runner + @agent-api-resiliency-tester tests must pass sequentially
+- Mandatory: @agent-ui-component-tester browser testing for frontend
 - Prohibited: Manual curl or Postman testing
 
 ## Recent Changes
