@@ -39,8 +39,8 @@
 **Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
 **Project Type**: [single/web/mobile - determines source structure]  
 **Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]
-**MCP Configuration**: [Specmatic mock port 9001, backend port 3000, frontend port 4000 or NEEDS CLARIFICATION]
-**Port Conflicts**: [Verify ports 9001, 3000, 4000 are available or NEEDS CLARIFICATION: resolve port conflicts before implementation - use `lsof -ti:PORT` to check, `kill -9 PID` to cleanup]  
+**MCP Configuration**: Specmatic mock server port 9001, backend server port 3000, frontend server port 4000
+**Port Conflicts**: CRITICAL - Verify all ports are available before implementation: use `lsof -ti:PORT` to check, `kill -9 PID` to cleanup conflicting processes  
 **Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
 ## Constitution Check
@@ -128,7 +128,7 @@ ios/ or android/
 └── [platform-specific structure]
 ```
 
-**Structure Decision**: [DEFAULT to Option 1 unless Technical Context indicates web/mobile app - Check for existing backend/frontend directories before scaffolding new projects]
+**Structure Decision**: CONSTITUTIONAL DEFAULT = Option 2 (Web application with backend/frontend). Check for existing directories before scaffolding new projects. Only use Option 1 for CLI-only tools.
 
 ## Phase 0: Outline & Research
 1. **Extract unknowns from Technical Context** above:

@@ -85,10 +85,16 @@ When creating this spec from a user prompt:
 - **Justification**: Why new operations are needed (if any)
 
 ### Port Requirements *(mandatory for development workflow)*
-- **Mock Server Port**: Feature requires port 9001 for Specmatic mock server [NEEDS CLARIFICATION: verify port 9001 is available or resolve conflicts]
-- **Backend Port**: Feature requires port 3000 for backend server [NEEDS CLARIFICATION: verify port 3000 is available or resolve conflicts]
-- **Frontend Port**: Feature requires port 4000 for frontend development [NEEDS CLARIFICATION: verify port 4000 is available or resolve conflicts]
-- **Port Cleanup**: User must check and kill any processes on these ports before implementation
+- **Mock Server Port**: Feature requires port 9001 for Specmatic mock server (verify available with `lsof -ti:9001`)
+- **Backend Port**: Feature requires port 3000 for Node.js/Express backend server (verify available with `lsof -ti:3000`)
+- **Frontend Port**: Feature requires port 4000 for React frontend development (verify available with `lsof -ti:4000`)
+- **Port Cleanup**: CRITICAL - User must check and kill any processes on these ports before implementation using `kill -9 PID`
+
+### Technology Stack Requirements *(per constitutional constraints)*
+- **Backend**: Node.js with Express framework, in-memory data structures only
+- **Frontend**: React application (Create React App or Vite)
+- **Testing**: Specmatic MCP contract testing + UI component testing (no manual curl/Postman)
+- **Environment**: Use `nvm use stable` for latest stable Node.js version
 
 ### Key Entities *(include if feature involves data)*
 - **[Entity 1]**: [What it represents, key attributes without implementation]
