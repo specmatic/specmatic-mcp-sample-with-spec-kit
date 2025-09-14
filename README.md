@@ -24,11 +24,11 @@ claude
 ```
 
 ```
-/plan Build the backend used nodeJS with in memory storage and frontend using React
+/plan
 ```
 
 ```
-/tasks To build a MVP version of this feature
+/tasks
 ```
 
 ```
@@ -140,16 +140,16 @@ specmatic-mcp-sample-with-spec-kit/
 
 ### Production Setup
 ```
-┌─────────────────┐                                  ┌─────────────────┐
-│                 │ ────── HTTP Requests ──────────► │                 │
-│    Frontend     │                                  │    Backend      │
-│   (React App)   │        ┌─────────────────┐       │ (Express API)   │
-│                 │        │  api_spec.yaml  │       │                 │
+┌─────────────────┐                                   ┌─────────────────┐
+│                 │ ────── HTTP Requests ───────────► │                 │
+│    Frontend     │                                   │    Backend      │
+│   (React App)   │        ┌──────────────────┐       │ (Express API)   │
+│                 │        │  api_spec.yaml   │       │                 │
 │   Port: 4000    │        │ (Evolved OpenAPI)│       │   Port: 3000    │
-│                 │        └─────────────────┘       │                 │
-|                 |                                  |                 |
-│                 │ ◄────── HTTP Responses ───────── │                 │
-└─────────────────┘                                  └─────────────────┘
+│                 │        └──────────────────┘       │                 │
+|                 |                                   |                 |
+│                 │ ◄────── HTTP Responses ────────── │                 │
+└─────────────────┘                                   └─────────────────┘
 ```
 
 ### Development Setup - Frontend
