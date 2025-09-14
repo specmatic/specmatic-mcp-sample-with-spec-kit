@@ -38,9 +38,9 @@
 **Testing**: [e.g., Specmatic MCP (contract + resiliency) + UI Component Tests or NEEDS CLARIFICATION]  
 **Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
 **Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
 **Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]
-**MCP Configuration**: [Specmatic mock port 9001, backend port 3000, frontend port 4000 or NEEDS CLARIFICATION]  
+**MCP Configuration**: [Specmatic mock port 9001, backend port 3000, frontend port 4000 or NEEDS CLARIFICATION]
+**Port Conflicts**: [Verify ports 9001, 3000, 4000 are available or NEEDS CLARIFICATION: resolve port conflicts before implementation - use `lsof -ti:PORT` to check, `kill -9 PID` to cleanup]  
 **Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
 ## Constitution Check
@@ -227,7 +227,7 @@ ios/ or android/
 
 **Phase 3**: Task execution (/tasks command creates tasks.md)  
 **Phase 4**: Implementation (execute tasks.md following constitutional principles)  
-**Phase 5**: Validation (run tests, execute quickstart.md, performance validation)
+**Phase 5**: Validation (run tests, execute quickstart.md)
 
 ## Complexity Tracking
 *Fill ONLY if Constitution Check has violations that must be justified*

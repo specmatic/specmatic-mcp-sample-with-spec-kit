@@ -44,11 +44,11 @@ When creating this spec from a user prompt:
 3. **Think like a tester**: Every vague requirement should fail the "testable and unambiguous" checklist item
 4. **Common underspecified areas**:
    - User types and permissions
-   - Data retention/deletion policies  
-   - Performance targets and scale
+   - Data retention/deletion policies
    - Error handling behaviors
    - Integration requirements
    - Security/compliance needs
+   - Port availability (9001, 3000, 4000) for development workflow
 
 ---
 
@@ -83,6 +83,12 @@ When creating this spec from a user prompt:
 - **If reusing**: List existing endpoints that will support this feature
 - **If extending**: Specify only the new endpoints/schemas that must be added
 - **Justification**: Why new operations are needed (if any)
+
+### Port Requirements *(mandatory for development workflow)*
+- **Mock Server Port**: Feature requires port 9001 for Specmatic mock server [NEEDS CLARIFICATION: verify port 9001 is available or resolve conflicts]
+- **Backend Port**: Feature requires port 3000 for backend server [NEEDS CLARIFICATION: verify port 3000 is available or resolve conflicts]
+- **Frontend Port**: Feature requires port 4000 for frontend development [NEEDS CLARIFICATION: verify port 4000 is available or resolve conflicts]
+- **Port Cleanup**: User must check and kill any processes on these ports before implementation
 
 ### Key Entities *(include if feature involves data)*
 - **[Entity 1]**: [What it represents, key attributes without implementation]

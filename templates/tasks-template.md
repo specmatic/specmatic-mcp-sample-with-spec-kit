@@ -46,6 +46,7 @@
 ## BACKEND PHASE - Can Run in Parallel with Frontend
 
 ### Phase 3.1: Backend Setup
+**Prerequisites: Verify port 3000 is available (use `lsof -ti:3000` to check, `kill -9 PID` to cleanup if needed)**
 - [ ] T001 Check for existing backend directory, create or update project structure per implementation plan
 - [ ] T002 Initialize or update [language] backend project with [framework] dependencies
 - [ ] T003 [P] Configure or update backend linting and formatting tools
@@ -81,7 +82,6 @@
 - [ ] T016 Auth middleware
 - [ ] T017 Request/response logging
 - [ ] T018 CORS and security headers
-- [ ] T019 [P] Performance validation tests
 - [ ] T020 @agent-contract-test-runner: Final backend verification - ALL contract tests MUST pass
 - [ ] T021 @agent-api-resiliency-tester: Final backend verification - ALL resiliency tests MUST pass
 - [ ] T022 Remove duplication (REFACTOR while keeping tests green)
@@ -90,6 +90,7 @@
 ## FRONTEND PHASE - Can Run in Parallel with Backend
 
 ### Phase 4.1: Frontend Setup with Mocks
+**Prerequisites: Verify ports 9001 and 4000 are available (use `lsof -ti:PORT` to check, `kill -9 PID` to cleanup if needed)**
 - [ ] T023 @agent-api-mock-manager: Start Specmatic mock server on port 9001
 - [ ] T024 Check for existing frontend directory, create or update project structure
 - [ ] T025 Initialize or update frontend project with framework dependencies
@@ -108,11 +109,11 @@
 ## INTEGRATION PHASE - Final Integration
 
 ### Phase 5.1: Real Backend Integration
+**Prerequisites: Verify all ports (3000, 4000) are available - kill any conflicting processes from previous phases**
 - [ ] T034 Start real backend on port 3000
 - [ ] T035 Reconfigure frontend: REACT_APP_API_BASE_URL=http://localhost:3000
 - [ ] T036 @agent-ui-component-tester: Integration tests with real backend
 - [ ] T037 [P] End-to-end workflow validation
-- [ ] T038 [P] Performance tests (<200ms)
 - [ ] T039 [P] Update documentation
 - [ ] T040 Shutdown all services after testing complete
 
